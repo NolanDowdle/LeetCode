@@ -9,21 +9,21 @@
 
 public class Solution extends GuessGame {
     public int guessNumber(int n) {
-        int left = 1;
-        int right = n;
-        int num = right+left/2;
-        int found = guess(num);
-        while(found != 0) {
-            if(found == -1) {
-                right = (right+left)/2;
-            } else if (found == 1) {
-                left = num;
-            } else if (found == 0) {
-                return num;
+        int low = 1;
+        int high = n;
+        int ans = 0;
+        while(low <= high) {
+            int mid = low+(high-low)/2;
+            int pick = guess(mid);
+            if(pick == 0) {
+                return mid;
+            } else if (pick == -1) {
+                high = mid-1;
+            } else {
+                low = mid+1;
             }
-            num = (right+left)/2;
-            found = guess(num);
         }
-        return num;
+
+        return -1;
     }
 }
